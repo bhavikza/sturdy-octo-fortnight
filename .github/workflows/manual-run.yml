@@ -1,28 +1,16 @@
-name: Hello World Workflow
+name: Ntfy Triggered Workflow
 
 on:
   repository_dispatch:
-    types: [ntfy_message_received]
+    types: [ntfy_trigger]
 
 jobs:
-  hello-world:
+  run-script:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
-
-      - name: Run Hello World Python script
-        run: |
-          echo "Hello, World!"
-          echo "Received message: ${{ github.event.client_payload.message }}"
+    - name: Run Hello World script
+      run: python hello-world.py
