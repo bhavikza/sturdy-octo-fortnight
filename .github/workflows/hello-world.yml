@@ -1,19 +1,24 @@
 name: Hello World Workflow
 
 on:
-  workflow_dispatch:  # Allows manual triggering via API
+  repository_dispatch:
+    types: [ntfy-trigger]
 
 jobs:
-  run-script:
+  hello-world:
     runs-on: ubuntu-latest
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
     
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
-    
-    - name: Run Hello World script
-      run: python hello-world.py
+        python-version: '3.10'
+        
+    - name: Run hello world script
+      run: |
+        python hello_world.py
+      env:
+        # You can access custom data sent in the webhook
+        MESSAGE: ${{ github.event.client_payload.message }}
