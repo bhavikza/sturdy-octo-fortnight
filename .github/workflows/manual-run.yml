@@ -1,16 +1,15 @@
-name: Ntfy Triggered Workflow
+name: Hello World on NTFY Trigger
 
 on:
   repository_dispatch:
     types: [ntfy_trigger]
 
 jobs:
-  run-script:
+  hello-world:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Run Hello World script
-      run: python hello-world.py
+      - name: Run Hello World script
+        run: echo "Hello, World! Triggered by NTFY event."
